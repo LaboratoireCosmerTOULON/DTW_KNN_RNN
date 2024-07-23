@@ -2,7 +2,7 @@
 
 This  github repository is associated with the paper :"Subject-independent diver gesture classification using upper limb movement"
 <p align="center">
-  <img src="./figures/setup.jpg?raw=true" alt="setup image", title="data acquisition setup", style="width:50%;"/>
+  <img src="./figures/setup.jpg?raw=false" alt="setup image", title="data acquisition setup", style="width:50%;"/>
 </p>
 This repository is organized as follow: 
 
