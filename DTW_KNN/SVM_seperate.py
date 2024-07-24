@@ -6,8 +6,6 @@ import pandas as pd
 from sklearn.svm import SVC
 import yaml
 import os
-
-#sys.path.append("./LayersLSTM")
 import DataLoader as lib
 import pandas as pd
 
@@ -49,11 +47,6 @@ def  svm_classifier(data_df,_energy_df,name,output_direc,data_loader):
     train_energy_df = _energy_df[_energy_df['Name']!=name]
     test_df= data_df[(data_df['Name']==name) & (data_df['original']=='original')]
     test_energy_df = _energy_df[(_energy_df['Name']==name) &(_energy_df['original'] == 'original')]
-    print(train_df['label'].unique())
-    # mapping_goup_signal={'goup2':'goup', 'godown2':'godown'} 
-    # train_df['label'] = train_df['label'].replace(mapping_goup_signal)
-    # test_df['label'] = test_df['label'].replace(mapping_goup_signal)
-    print(train_df['label'].unique())
     train_df.to_pickle(output_direc+'nosep/'+name+'_train.pickle') 
     test_df.to_pickle(output_direc+'nosep/'+name+'_test.pickle') 
     mapping_onetwo = {'L': 0, 'R': 0, 'B': 1}
@@ -67,15 +60,12 @@ def  svm_classifier(data_df,_energy_df,name,output_direc,data_loader):
     x2 = train_energy_df['x2'].values
     X = np.stack([x1,x2]).T
     y = train_energy_df['y'].values
-    rows_with_nan = train_energy_df[train_energy_df.isna().any(axis=1)]
     clf.fit(X, y)
-    #test_energy_df = test_energy_df.dropna()
     x1 = test_energy_df['x1'].values
     x2 = test_energy_df['x2'].values
     X = np.stack([x1,x2]).T
     test_df['twohands'] = clf.predict(X)
     test_energy_df['twohands'] = clf.predict(X)
-    #test_df['twohands'] = test_energy_df['twohands']
     test_df['h'] = test_energy_df['h'].values
     save_dfs(test_df,data_loader, name,prefix='test' ,data_loc=output_direc)
     save_dfs(train_df,data_loader, name,prefix='train' ,data_loc=output_direc)
