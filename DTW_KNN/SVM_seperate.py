@@ -13,16 +13,16 @@ def save_dfs(data_df,data_loader,diver,prefix,data_loc,deriv = False):
     one_diver_Loader = lib.DataLoader(direc='./',gesture_array=[''])
     df_monogestures = data_df.loc[data_df['twohands'] == 0]
     df_duogestures = data_df.loc[data_df['twohands'] == 1]
-    print(df_monogestures['h'].unique()) 
-    print(diver,prefix,len(data_df), len(df_monogestures), len(df_duogestures))
+    print("For ", diver,prefix," data we have ",len(data_df), "unique signals in total : \n",
+          'One armed signals: ', len(df_monogestures), 
+          '\nTwo armed signals: ', len(df_duogestures))
     if (len(data_df) != (len(df_monogestures) + len(df_duogestures))): 
-        print('diver ', diver,'incorrect' ) 
+        print('diver ', diver,' data is incorrect' ) 
     #df_monogestures = df_monogestures[ df_monogestures['original'] =='original']
     for  i in range (len(data_loader.right_side_feature)): 
         df_monogestures.loc[df_monogestures['h']==1,data_loader.right_side_feature[i]] = df_monogestures[data_loader.left_side_feature[i]]
     
     df_monogestures =df_monogestures.drop(data_loader.left_side_feature,axis=1)
-    print(len(df_monogestures))
     one_diver_Loader.df = df_monogestures
     one_diver_Loader._add_meta_columns(['twohands','h'])
     if deriv==True: 
@@ -36,9 +36,6 @@ def save_dfs(data_df,data_loader,diver,prefix,data_loc,deriv = False):
     df_duogestures = one_diver_Loader.df
     df_monogestures = df_monogestures.drop(columns=['twohands','h']) 
     df_duogestures = df_duogestures.drop(columns=['twohands','h']) 
-    print(len(df_duogestures))
-    print(one_diver_Loader.df.columns)
-    print(one_diver_Loader.df['label'].unique())
     df_monogestures.to_pickle(data_loc+'mono/'+diver+'_'+prefix+'.pickle')
     df_duogestures.to_pickle(data_loc+'duo/'+diver+'_'+prefix+'.pickle')
 
@@ -77,7 +74,6 @@ def main():
         config_data = yaml.load(yaml_file,Loader= yaml.FullLoader)
         divers = config_data['divers']
         label  = config_data['gestures'] 
-        print(label)
 
     input_direc = config_data['dataloc']
     output_direc = config_data['outputloc']
@@ -87,13 +83,11 @@ def main():
     data_loader.initialize_from_yaml(args.yaml_file)
     data_loader.df['meta'] = data_loader.df['signal_id']+data_loader.df['original']
     duplicates = data_loader.df[data_loader.df['meta'].duplicated(keep=False)]
-    print(duplicates['meta'].unique())
     
     data_loader.df =data_loader.df.drop(columns=['meta'])
-    print(data_loader.df.columns)
     for i in range(0,len(divers)): 
         diver_df = data_loader.df[data_loader.df['Name']==divers[i]]
-        print('for subject ', divers[i], 'we have: ',len(diver_df),'gesture')
+        print('for ', divers[i], 'we have: ',len(diver_df),'gesture including data augmentation')
     _energy_df = data_loader.get_energy_right_left_df()
     
     data_df = data_loader.df
@@ -105,7 +99,7 @@ def main():
             os.mkdir(output_direc+directory)
     
     for name  in (divers):
-        print('processing diver: ',name)
+        print('processing  ',name)
         svm_classifier(data_df=data_df,_energy_df=_energy_df,name= name,output_direc=output_direc,data_loader = data_loader)
         # print(name)
 

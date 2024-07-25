@@ -147,7 +147,6 @@ class KnnDtw(object):
         if self.wrapping_calculation== True : 
             i = M-1
             j = N-1
-            print(i,j)
             path = [(i,j)]
             #features_contribution.append(cost_meta[i,j,:])
             while i>0 or j>0: 
@@ -175,7 +174,6 @@ class KnnDtw(object):
                     if j>0 : 
                         j=j-1
                 path.append((i, j))
-            print(i,j)
             path.append((0,0))
             features_contribution.append(cost_meta[0,0,:])
             features_contribution = np.array(features_contribution)
@@ -211,13 +209,13 @@ class KnnDtw(object):
             x_s = len(x)
             y_s = len(y)
             dm = np.zeros(((x_s),(y_s)))
-            print('shape used', x_s,y_s)
+            #print('shape used', x_s,y_s)
             dm_size = (x_s*y_s)
             p = ProgressBar(dm_size)
             for i in range(0, x_s,self.subsample_step):
                 for j in range(0, y_s,self.subsample_step):
                     if (multivar ==True): 
-                        print(x[i].shape,y[j].shape)
+                        #print(x[i].shape,y[j].shape)
                         dm[i,j] = self._dtw_distance(x[i],y[j], d = lambda a,b :KnnDtw.distance(self,a,b) ) 
                     else :     dm[i,j] = self._dtw_distance(x[i],y[j])
                     dm_count += 1
@@ -247,7 +245,7 @@ class KnnDtw(object):
         else:
             x_s = np.shape(x)
             y_s = np.shape(y)
-            print(x_s,y_s)
+            #print(x_s,y_s)
             dm = np.zeros(((x_s[0]), (y_s[0]))) 
             dm_size = (x_s[0])*(y_s[0])
             
@@ -273,12 +271,10 @@ class KnnDtw(object):
             dm = np.zeros((x_s))
             feat_num = x[0].shape[0]
             feat_contribs = np.zeros((x_s,feat_num))
-            print('shape used', x_s,y_s)
             dm_size = (x_s)
             p = ProgressBar(dm_size)
             for i in range(0, x_s):
             #for i in range(0, 1):
-                    print(x[i].shape,y.shape)
                     cost_mat,nana,susu,feat_contrib = self._dtw_distance(x[i],y, d = lambda a,b :KnnDtw.distance(self,a,b)) 
                     dm[i]=cost_mat[-1,-1]
                     feat_contribs[i,:] = feat_contrib
@@ -309,7 +305,7 @@ class KnnDtw(object):
             p = ProgressBar(dm_size)
             for i in range(0, x_s):
             #for i in range(0, 1):
-                    print(x[i].shape,y.shape)
+                   # print(x[i].shape,y.shape)
                     cost_mat,nana,susu,feat_contrib = self._dtw_distance(x[i],y, d = lambda a,b :KnnDtw.distance(self,a,b)) 
                     dm[i]=cost_mat[-1,-1]
                     feat_contribs[i,:] = feat_contrib
@@ -334,6 +330,7 @@ class KnnDtw(object):
         ---------
         x : array of shape [n_samples, n_timepoints]
             Array containing the testing data set to be classified
+            print(i,j)
         Returns
         -------
         2 arrays representing:
