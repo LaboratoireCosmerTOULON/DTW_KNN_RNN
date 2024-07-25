@@ -7,9 +7,9 @@ This  github repository is associated with the paper :"Subject-independent diver
 </p>
 This repository is organized as follow: 
 
-+ /data directory that contains the data used in the paper. 
-+ /DTW-KNN include for the DTW classification
-+ /RNN includes the RNN-based classification
++ ./data/ directory that contains the data used in the paper. 
++ ./DTW-KNN/ include for the DTW classification
++ ./RNN/ includes the RNN-based classification
 
 ## DTW-KNN
 The subdirectory DTW-KNN contains all the code needed to perform the SVM seperation and the DTW-KNN classification. 
