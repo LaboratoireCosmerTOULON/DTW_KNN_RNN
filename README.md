@@ -13,10 +13,11 @@ This repository is organized as follow:
 
 ## DTW-KNN
 The subdirectory DTW-KNN contains all the code needed to perform the SVM seperation and the DTW-KNN classification. 
-The subdirectory inlcudes the  following folders: 
+The subdirectory includes the  following folders: 
 - yaml/ 
 - scripts/
 - utils/
+- 
 <div style="display: flex; flex-wrap: wrap; gap: 10px;">
     <!-- First Row: 3 GIFs -->
     <figure style="flex: 1 1 30%; margin:0; box-sizing: border-box; text-align: center;">
