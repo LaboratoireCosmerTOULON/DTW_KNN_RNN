@@ -1,21 +1,23 @@
 # DTW_KNN_RNN
 
-This  github repository is associated with the paper :"Subject-independent diver gesture classification using upper limb movement"
-<p align="center">
-  <img src="./figures/setup.jpg?raw=false" alt="setup image", title="data acquisition setup", style="width:50%;"/>
+This  github repository is associated with the paper :"Subject-independent diver gesture classification using upper limb movement" submitted to the journal Robotics and Automation Letter and currently under review.
+
+<p align="left">
+  <img src="./figures/setup_mini.jpg?raw=false" alt="setup image", title="data acquisition setup", style="width:50%;"/>
 </p>
 This repository is organized as follow: 
 
-+ /data directory that contains the data used in the paper. 
-+ /DTW-KNN include for the DTW classification
-+ /RNN includes the RNN-based classification
++ ./data/ directory that contains the data used in the paper. 
++ ./DTW-KNN/ include for the DTW classification
++ ./RNN/ includes the RNN-based classification
 
 ## DTW-KNN
-The subdirectory DTW-KNN contains all the code need to perform the SVM seperation and the DTW-KNN classification. 
-The subdirectory inlcudes the  following folders: 
+The subdirectory DTW-KNN contains all the code needed to perform the SVM seperation and the DTW-KNN classification. 
+The subdirectory includes the  following folders: 
 - yaml/ 
 - scripts/
 - utils/
+
 <div style="display: flex; flex-wrap: wrap; gap: 10px;">
     <!-- First Row: 3 GIFs -->
     <figure style="flex: 1 1 30%; margin:0; box-sizing: border-box; text-align: center;">
