@@ -1,0 +1,27 @@
+
+gestures:
+- godown
+- reserve 
+- goup
+- assemble
+- notwell
+- ok 
+- outofair
+- stabilize
+- halfpressure
+- panting  
+- cold
+
+
+meta_columns:
+- signal_id
+- Name
+- label
+- oscillations
+- position 
+- rest_position
+- hands
+- conform
+- original
+
+dropout : 0.3
