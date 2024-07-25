@@ -12,7 +12,7 @@ This repository is organized as follow:
 + /RNN includes the RNN-based classification
 
 ## DTW-KNN
-The subdirectory DTW-KNN contains all the code need to perform the SVM seperation and the DTW-KNN classification. 
+The subdirectory DTW-KNN contains all the code needed to perform the SVM seperation and the DTW-KNN classification. 
 The subdirectory inlcudes the  following folders: 
 - yaml/ 
 - scripts/
