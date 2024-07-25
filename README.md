@@ -1,7 +1,7 @@
 # DTW_KNN_RNN
 
 This  github repository is associated with the paper :"Subject-independent diver gesture classification using upper limb movement"
-<p align="center">
+<p align="left">
   <img src="./figures/setup_mini.jpg?raw=false" alt="setup image", title="data acquisition setup", style="width:50%;"/>
 </p>
 This repository is organized as follow: 
