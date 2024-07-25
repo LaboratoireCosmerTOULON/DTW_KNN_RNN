@@ -26,7 +26,7 @@ class DataLoader:
         self.df = pd.DataFrame()
         
     ## methods used to fill in our data
-    def initialize_from_yaml(self,file_path='./processor_config.yaml'): 
+    def initialize_from_yaml(self,file_path='./.yaml'): 
         '''initilazation code for paramaters that can be stored in a yaml file'''
         print(file_path)
         with open(file_path, 'r') as yaml_file:
@@ -246,95 +246,6 @@ class DataLoader:
                 self.df = self.df.drop(columns=[column_name])
             self.df[column_name+'vel'] = new_column
     
-    # ################FIltered data 
-    # def filter_signal(self,w1=10,w2=15,filter_type='band',inplace=True):
-    #     '''filter the data using a band pass filter, of low pass filter ca  be in the same dataframe or extract the new data '''
-    #     df1 =self.df
-    #     array_filter =self.all_features
-    #     df1 = df1[array_filter]
-    #     df= df1
-    #     signal_filter = FrequencyFilter(w1=w1,w2=w2,filter_type = filter_type)
-    #     for column_name in df:
-    #         column =df [column_name]
-    #         column = column.values 
-    #         new_column = []
-    #         for signal in column: 
-    #             filtered_signal = signal_filter.filter(signal)
-    #             new_column.append(filtered_signal)
-    #         if inplace:
-    #             self.df[column_name+filter_type] = new_column
-    #             self.extra_columns.append(column_name+filter_type)
-    #         else : 
-    #             df1[column_name] = new_column
-    #     if inplace != True: 
-    #         return df1
-        
-    # def filter_signal_with_variable_cutoff(self,w1=1,w2=4,filter_type='band',inplace=True):
-    #     '''filter the data with a cutoff frequency based on the signal length'''
-    #     array_filter=self.all_features
-    #     df1 =self.df
-    #     df = df1[array_filter]
-    #     for column_name in df:
-    #         column =df [column_name]
-    #         column = column.values 
-    #         new_column = []
-    #         for signal in column: 
-    #             length_of_signal = len(signal)
-    #             cutoff =( w1/length_of_signal)*100
-    #             if cutoff>w2 :
-    #                  w2 =cutoff*2
-    #             cutoff2 =( w2/length_of_signal)*100
-    #             signal_filter = FrequencyFilter(w1=cutoff,w2=cutoff2,filter_type = filter_type)
-    #             filtered_signal = signal_filter.filter(signal)
-    #             new_column.append(filtered_signal)
-    #         if inplace:
-    #             self.df[column_name+filter_type] = new_column
-    #             self.extra_columns.append(column_name+filter_type)
-    #         else : 
-    #             df1[column_name] = new_column
-    #     if inplace != True: 
-    #         return df1
-
-    # def filter_signal_energy(self,df1,filter_type): 
-    #     '''calculate the energy of the filtered data'''
-    #     useful_col = self.all_features
-    #     useful_col = [x+filter_type for x in useful_col]
-    #     df1 = df1[useful_col]
-    #     for column_name in df1: 
-    #         column =df1 [column_name]
-    #         column = column.values 
-    #         new_column = []
-    #         for signal in column : 
-    #             new_column.append(np.sum(np.square(signal)))
-    #     df1[column_name] = new_column
-    #     return df1
-
-    # ########################cross correlation
-    # def cross_correlate_signal(self,array_to_correlate,inplace=True):
-    #     df = self.df
-    #     for column_name in array_to_correlate:
-    #         column =df [column_name]
-    #         column = column.values 
-    #         new_column = []
-    #         for signal in column: 
-    #             cross_correlated_signal = sig.correlate(signal,signal,mode='same')
-    #             new_column.append(cross_correlated_signal)
-    #         if inplace:
-    #             self.df[column_name+'cross_corr'] = new_column
-    #             self.extra_columns.append( column_name+ 'cross_corr' )
-    #             self.df[column_name+'cross_corr_energy'] = self.df[column_name +'cross_corr'].apply(lambda x:np.sum(x*x))
-    #             self.meta_columns.append( column_name+ 'cross_corr_energy' )
-    #         else: 
-    #             df[column_name+'cross_corr'] = new_column
-    #     if  inplace != True: 
-    #         return df 
-    
-    # def cross_correlation_for_classification(self): 
-    #     #df  = self.df
-    #     self.filter_signal(w1=0.3,w2=4,filter_type='band',inplace = True)
-    #     self.filter_signal(w1=0.3,w2=4,filter_type='low',inplace = True)
-    #     array_to_correlate = [i+'band' for i in self.all_features]+ [i+'low' for i in self.all_features]
-    #     self.cross_correlate_signal(array_to_correlate=array_to_correlate,inplace=True)
     
     def get_energy_right_left_df(self):
         '''calcucate the energy independently for left and right side''' 
@@ -369,55 +280,9 @@ class DataLoader:
         energy_df['h']  = np.where(energy_df['energy_right_side'].values > energy_df['energy_left_side'].values,2,1) 
         energy_df['x1'] = np.where(energy_df['energy_right_side'].values > energy_df['energy_left_side'].values,(energy_df['energy_right_side']- energy_df['energy_left_side'])/ energy_df['energy_right_side']  ,(energy_df['energy_left_side']- energy_df['energy_right_side'])/ energy_df['energy_left_side'] ) 
         energy_df['x2'] = np.where(energy_df['energy_vel_right'].values > energy_df['energy_vel_left'].values,(energy_df['energy_vel_right']- energy_df['energy_vel_left'])/ energy_df['energy_vel_right']  ,(energy_df['energy_vel_left']- energy_df['energy_vel_right'])/ energy_df['energy_vel_left'] ) 
-        # if self._3d == True:
-        #     cross_band_corr_energy = self.df[[ i+'velbandcross_corr_energy' for  i in self.all_features]].copy()
-        #     cross_band_corr_energy['cross_corr_energy_max']=cross_band_corr_energy.max(axis=1)
-        #     argmax_values=cross_band_corr_energy.idxmax(axis=1)
-        #     argmax_index = argmax_values.map(lambda x: cross_band_corr_energy.columns.get_loc(x))
-        #     cross_low_corr_energy = self.df[[ i+'vellowcross_corr_energy' for  i in self.all_features]].copy()
-        #     cross_low_corr_energy['coressponding_cross_low_energy_max'] = cross_low_corr_energy.apply(lambda row: row[argmax_index[row.name]],axis=1) 
-        #     sigmoid = Sigmoid(u=0.5,v=60)
-        #     #energy_df['z'] = sig.sigmoid(abs(energy_df['corr_band'])/(abs(energy_df['corr_low']) +abs(energy_df['corr_band'] )))
-        #     energy_df['z'] = cross_band_corr_energy['cross_corr_energy_max'] /(cross_band_corr_energy['cross_corr_energy_max'] +cross_low_corr_energy['coressponding_cross_low_energy_max'] )
-        #     #energy_df['z'] = sigmoid.sigmoid(energy_df['z'])
         return energy_df
     
         
-
-    # def get_3_energy_better(self): 
-    #     df1 = self.df
-        
-    # def get_max_contrib_energy (self): 
-    #     '''obtain the energy of the most contributing signal'''
-    #     df = self._get_dataframe()
-    #     energy_ARR,energy_ARR_vel = [] , []
-    #     for i in range (0,len(df)):
-    #         diver = df.iloc[i]
-    #         name= diver['Name']
-    #         label = diver['label']
-    #         signal_id= diver['signal_id']
-    #         flipped = diver['original']
-    #         sig,_,_ =  self.extract_row(name,signal_id,copy = flipped)
-    #         N = sig[0].shape[1]
-    #         energy, sig_normed = self.feat_energy(sig)
-    #         energy = np.array(energy)/(N*N)
-    #         row = [signal_id] + energy.tolist() +[label,name]
-    #         row_vel = self.energy_vel(sig)
-    #         row_vel = 10000*np.array(row_vel)/(N*N)
-    #         energy_ARR.append(row)
-    #         energy_ARR_vel.append(row_vel)
-    #     colums_vel = ['velocity_energy_sig'+str(i) for i in range ()] 
-    #     energy_ARR = np.array(energy_ARR,dtype=object)
-    #     energy_ARR_vell = np.array(energy_ARR_vel,dtype=object)
-    #     energy_df = pd.DataFrame(energy_ARR, columns =df.columns)
-    #     df_copy_energy = pd.DataFrame(energy_ARR_vell,columns=colums_vel)
-    #     energy_df = energy_df.join(df_copy_energy)
-    #     energy_df['energy_right_side']=energy_df[self.right_side_feature].sum(axis=1)
-    #     energy_df['energy_left_side']=energy_df[self.left_side_feature].sum(axis=1)
-    #     energy_df['h'] =  np.where(energy_df['energy_right_side'].values > energy_df['energy_left_side'].values,2,1) 
-    #     return energy_df
-
-
     def feat_energy(self,sig): 
         '''returns the energy of each feature signal'''
         sig = sig[0]
@@ -438,7 +303,6 @@ class DataLoader:
         '''get df data into the shape we used to have before, signal + label, 
         all the metadata is loaded into another df'''
         meta_data = df[self.meta_columns]
-        #df = df.drop(columns=['signal_id','Name']) 
         return meta_data,df
     
  
