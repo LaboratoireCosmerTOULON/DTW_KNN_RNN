@@ -12,7 +12,6 @@ from sklearn.metrics import accuracy_score, confusion_matrix
 from utils.AlphaBeta import AlphaBetaFilter,Sample, FrequencyFilter
 import copy
 import random
-from utils.sigmoid import Sigmoid
 class DataLoader: 
     def __init__(self,direc = './', divers = ['subject1','subject2','subject3'], \
         gesture_array=  ['godown','reserve','goup'],\
@@ -79,7 +78,6 @@ class DataLoader:
         data =[]
         for  diver in self.divers:
             file = direc+diver+suffix
-            print(file)
             path = Path (file)
             if path.is_file():
                 with open (file,'rb') as f:

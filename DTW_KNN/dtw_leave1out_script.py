@@ -7,6 +7,7 @@ import pandas as pd
 from sklearn.svm import SVC
 import pickle
 import csv
+#import DataLoader as lib
 import DataLoader as lib
 from KnnDtw import KnnDtw
 import pandas as pd
@@ -36,7 +37,7 @@ def main():
     print('distance type used: ',distance_type)
     Loader = lib.DataLoader(direc='./',meta_columns=['signal_id','oscillations','position','rest_position','hands','conform','original','Name'] )
     Loader.initialize_from_yaml(args.yaml)
-    m = KnnDtw(n_neighbors=neighbors, max_warping_window=window,subsample_step=1,class_names=Loader.gesture_array, distance_type=distance_type ,wrapping_calculation=True,output = args.output)
+    m = KnnDtw(n_neighbors=neighbors, max_warping_window=window,subsample_step=1,class_names=Loader.gesture_array, distance_type=distance_type ,wrapping_calculation=True,prefix = args.output)
     subject = args.subject
     Loader.load_df(Loader.direc+args.data_directory+subject+'_test.pickle')
     meta_test,test  = Loader.seperate_additional_data()
