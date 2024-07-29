@@ -6,7 +6,7 @@ yaml_file='./yaml/DTW_samediver.yml'
 # The gesture data type, can be either no sep for data without svm seperation, duo for only gestures with two arms or mono for only gestures with one arm
 data_type='nosep/'
 #the corresponding DTW window size
-window_size=200
+window_size=2
 #number of neighbors in KNN 
 neighbors=10 
 subject='subject3' 
@@ -21,4 +21,4 @@ if [ ! -d "$dir" ]; then
     fi
 fi
 
-python3 DTW_leave1out_script.py --window $window_size --neighbors $neighbors --subject $subject --data_directory $data_type --yaml $yaml_file --prefix $output --signal_ith $signal_number
+python3 DTW_leave1out_script.py --window $window_size --neighbors $neighbors --subject $subject --data_directory $data_type --yaml $yaml_file --output $output --signal_ith $signal_number
