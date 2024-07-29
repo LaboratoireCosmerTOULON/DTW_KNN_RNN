@@ -120,22 +120,23 @@ For each subjectA, we have two files _subjectA\_train.pickle_ containing the dat
 To compare the signal of each diver with his own signal, we will be using `dtw_samediver_script.py` found in _/DTW\_KNN_.
 
 The code requires the following arguments: 
-- window : the DTW wrapping window set by default to 10. 
+- window : the DTW wrapping window size. 
 - neighbors : the KNN K-factor set to by default to 3. 
 - distance_type : the type of distance calculation, can be 'norm1', 'norm2', or 'angle'. The results presented in the paper are obtained with 'angle'.
 - data_directory: allowing us to choose one of the three directory generated in step 2 'mono/', 'duo/', or 'nosep/'. 
 - subject: to select which subject should be compared. 
 - yaml: a yaml file containing the metadata configuration. 
 - output: allowing us to select the directory where we want our results to be stored.
-- signal_ith: to select which signal should be singled out in our comparison. 
+- signal_nunmber: to select which signal should be singled out in our comparison. 
 
 An example of how to run this code is provided in `DTW_KNN/scripts/run_samesubject_onesignal.sh`
-To run this script, navigate to
+To run this script, navigate to `DTW_KNN` using `cd path/to/your/directory/DTWKNN/scripts/` before running the bash code `./run_samesubject_onesignal.sh` feel free to modify the different parameters in the bash file.
 
 ## Step 4 The DTW leave one out classification
 Similarly, `dtw_leave1out_script.py` provide the script to isolate one signal from one diver and classify it against all other signals using leave-one-out.
 The code requires the same argument as seen in step3. 
 An example of running this code is provided in `DTW_KNN/scripts/run_leave_one_out_onesignal.sh`
+Similarly and after navigating to `DTW_KNN/scripts/`, you can run the code using `./run_leave_one_out_onesignal.sh`
 
 ## Step 5 RNN based  leave one classification
 In the directory _/RNN/_ the code `rnn_training.py` provide the script to replicate the **LSTM,LSMT_CL, GRU,** and **GRU_CL** models. The code required the following arguments: 
@@ -152,3 +153,5 @@ In the directory _/RNN/_ the code `rnn_training.py` provide the script to replic
 - yaml: a yaml configuration file similar to what we have seen above
 
 An example of running this code is provided in`RNN/scripts/train_rnn.sh`
+Similarly and after navigating to `RNN/scripts/`, you can run the code using `./train_rnn.sh`
+Feel free to modify the different parameter in the bash file.
