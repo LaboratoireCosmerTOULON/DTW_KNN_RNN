@@ -24,7 +24,7 @@ model_type='lstm'
 output='./../output/'
 # a confusion matrix will be generated to the output directory
 data='./../data/'
-epochs=3
+epochs=50
 # number of training epochs (50 in our paper)
 
 python3 rnn_training.py --yaml $yaml --subject $subject --data_type $data_type --output_path $output --model $model_type --epochs $epochs

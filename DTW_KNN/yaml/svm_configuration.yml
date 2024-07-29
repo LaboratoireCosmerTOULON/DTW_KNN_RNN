@@ -39,7 +39,7 @@ gestures:
 - halfpressure
 - panting 
 - cold
-dataloc: './../data/brut_data/'
+dataloc: './../data/extracted_featrues/'
 
 outputloc: './../data/'
 

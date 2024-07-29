@@ -6,9 +6,11 @@ This  github repository is associated with the paper :"Subject-independent diver
   <img src="./figures/setup_mini.jpg?raw=false" alt="setup image", title="data acquisition setup", style="width:50%;"/>
 </p>
 
-This repository is organized as follow: 
+This repository is organized as follows: 
 
 + ./data/ directory that contains the data used in the paper. 
+ -- brut_data/ contains the extracted gestures with the gesture geometric features calculated as a pickle file. 
+ -- subject3_mocap/ provide an example of raw mocap data in `.mat` format.
 + ./DTW-KNN/ include for the DTW classification.
  The DTW-KNN code is partially based on the code present in two following repositories:
  https://github.com/markdregan/K-Nearest-Neighbors-with-Dynamic-Time-Warping/
@@ -70,14 +72,40 @@ The 11 gestures classified in this paper :
     </figure>
 </div>
 
+## Step 0 install the required files:
+- Ensure you have Git installed on your machine. You can download it from [git-scm.com](https://git-scm.com/).
+To clone our repository navigate to the directory where you want to clone the code using your terminal. 
+`cd /path/to/your/directory/` 
+Once in the desired directory clone the repository using the following command: 
+`git clone git@github.com:LaboratoireCosmerTOULON/DTW_KNN_RNN.git`
+
+The data of this project is made available on :  [Calculated angle features](https://app.box.com/index.php?rm=box_download_shared_file&shared_name=6ucmlmzk511liyc4ag1rmlut8thmkcnw&file_id=f_1606055674885) 
+Once you download the zip file, extract the content into `/path/to/your/directory/data/extracted_features/` 
+The data presented is preprocessed and contains the extracted feature data, organized by subject and formatted in pandas frame inside pickle files. 
+
+If you are interested in raw data obtained using the Motion capture, we provide an example of this on : [Subject 3 MoCap data](https://app.box.com/index.php?rm=box_download_shared_file&shared_name=8hw714koz3sl5uxvkiokqka07r8vtmw7&file_id=f_1606058404172) 
+The  data is presented in .mat file and can be visualized using MATLAB. This dataset is not required for this project.  
+
+
 ## Step 1 replicate the python environment
-To replicate our python environment we provide two files in the `/env/` directory
+To replicate our python environment we provide the `requirments.txt` file in the `/env/` directory, the code is running on `python 3.8.16`
+We recommend using  python environment mangers like conda or virtualenv to replicate the environment without interfering with your current python installation. 
+In case you are unfamiliar with the process please check the corresponding  websites for your installation : 
+ + conda : https://conda.io/projects/conda/en/latest/user-guide/install/index.html
+ + virtualenv : https://virtualenv.pypa.io/en/latest/installation.html
 
-+ If you have conda installed it is possible to replicate our environment using the following command: ` conda env create -f ./env/env.yml`. This will create a conda environment called `DTW_KNN_RNN`.
-To activate your conda environment `conda activate DTW_KNN_RNN` 
+we provided two bash script for environment installation with these two mangers. 
+To replicate our enviroment in conda navigate to `/env/` using `cd  /path/to/your/directory/DTW_KNN_RNN/env/` 
+For conda installation: 
+`source ./conda_setup.sh`
+For virtualenv installation: 
+`source ./virtualenv_setup.sh`
 
-+  It is also possible to replicate it using `pip3`: 
- `pip3 install -r ./env/requirements.txt`
+
+The provided installation script activates automatically both environments, however if you open a new terminal you might need to reactivate the python environment.
+
+For conda : `conda activate DTWRNN` 
+For virtualenv: `source /DTWRNN/bin/activate` 
 
 ## Step 2 The SVM arm isolation
 
@@ -102,7 +130,7 @@ The code requires the following arguments:
 - signal_ith: to select which signal should be singled out in our comparison. 
 
 An example of how to run this code is provided in `DTW_KNN/scripts/run_samesubject_onesignal.sh`
-
+To run this script, navigate to
 
 ## Step 4 The DTW leave one out classification
 Similarly, `dtw_leave1out_script.py` provide the script to isolate one signal from one diver and classify it against all other signals using leave-one-out.
