@@ -49,7 +49,7 @@ def plot_confusion_matrix(cm, classes,args, normalize=False,title='Confusion mat
     plt.tight_layout()
     plt.ylabel('True label',fontsize=20)
     plt.xlabel('Predicted label',fontsize=20)
-    plt.savefig(args.output+'confusion_matrix'+args.subject+'.jpg')
+    plt.savefig(args.output+'confusion_matrix'+args.subject+'.png')
 
 def one_by_one_induction(dataloader,model,test_data): 
     X_test,Y_test,Y_class_test,Y_oh_test, signal_id_test =   dataloader.split_x_y_with_id(dataloader.test_df)
